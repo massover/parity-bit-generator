@@ -1,0 +1,56 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="mystyle.css">
+<body>
+<script>
+function pGen(){
+    var num = $("#number").val();
+    if (num.match("^0b")){
+        num = num.slice(2);
+        console.log(num);
+    } else if (num.match("^0x")){
+        num = num.slice(2);
+        num = parseInt(num,16).toString(2);
+    } else {
+        num = Number(num).toString(2);
+    }
+    alert(num.match(/1/g).length);
+
+}
+
+
+</script>
+
+
+<div class="container">
+    <h1>Parity Generator</h1>
+    <form class="form-inline" role="form" action="javascript:pGen()" >
+    	<div class="form-group">
+            <label class="sr-only" for="numberType">Number Type</label>
+        	<select class="form-control input-lg" name="numberType" id="numberType">
+            	<option>Even</option>
+     	        <option>Odd</option>
+        	</select>
+    	</div>
+    	<div class="form-group">
+            <label class="sr-only" for="number">Input Number</label>
+            <input type="text" class="form-control input-lg" name="number" id="number" placeholder="ex: 1234, 0b10, 0xBA">
+    	</div>	
+    	<button type="submit" class="btn btn-primary btn-lg">Generate</button>
+    </form>
+    <div id="results" class="hidden">
+        <div class="alert alert-success" role="alert">
+            
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
