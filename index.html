@@ -57,7 +57,7 @@ function showResult(data){
     + ' </div>';
 
  
-    $("#result-section").append(html);
+    $("#result-section").html(html);
     $("#result-section").fadeIn('fast');
 }
 
@@ -66,14 +66,8 @@ function generateButtonHandler(){
     showResult(data);
 }
 
-function hideResult(){
-    $("#result-section").fadeOut('fast', function() {
-        $("#alert-section").remove();
-    });
-}
-
-$("#number").bind('keyup keypress',function(event) {
-    if (event.which != 13) { hideResult(); }
+$("#number").bind('input',function(event) {
+        $("#result-section").fadeOut('fast');
 });
 
 $("#number").keyup( function(event) {
@@ -88,7 +82,7 @@ $("#number").keyup( function(event) {
             $("#generate-button").prop('disabled',false);
         }
     } else {
-        bin_num = parseInt(+input_num).toString(2);
+        bin_num = (+input_num).toString(2);
         if (isNaN(bin_num)){
             $(".form-group").addClass("has-error");
         } else {
