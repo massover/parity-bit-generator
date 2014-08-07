@@ -27,25 +27,21 @@
 <script>
 function getTableData(){
     var input_num = $("#number").val();
+    
+    
     if (input_num.match("^0b")){
-        bin_num = input_num.slice(2);
-        input_num = 'bin ' + input_num;
-    } else if (input_num.match("^0x")){
-        hex_num = input_num.slice(2);
-        bin_num = parseInt(hex_num,16).toString(2);
-        input_num = 'hex ' + input_num;
+        var bin_num = input_num.slice(2);
     } else {
-        bin_num = Number(input_num).toString(2);
-        input_num = 'int ' + input_num;
+        var bin_num = parseInt(input_num).toString(2);
     }
-    count_of_1s = bin_num.match(/1/g).length;
-    even_parity = count_of_1s % 2;
-    odd_parity = (count_of_1s + 1) % 2;
-    data = [ input_num,
-             bin_num,
-             count_of_1s,
-             even_parity,
-             odd_parity ];
+    var count_of_1s = bin_num.match(/1/g).length;
+    var even_parity = count_of_1s % 2;
+    var odd_parity = (count_of_1s + 1) % 2;
+    var data = [ input_num,
+                 bin_num,
+                 count_of_1s,
+                 even_parity,
+                 odd_parity ];
 
     return data;
 }
@@ -60,7 +56,7 @@ function showResult(data){
     var html = '<div class="alert alert-success" id="alert-section" role="alert">'
     + '    <i class="fa fa-chevron-right"></i>'
     + '    <i class="fa fa-chevron-right"></i>'
-    + '    <p><strong>' + input_num + '</strong></p>'
+    + '    <p><strong> ' + input_num + '</strong></p>'
     + '    <table class="table table-condensed">'
     + '    <tr>'
     + '    <th>binary</th><th>count of 1s</th><th>even parity</th><th>odd parity</th>'
@@ -89,7 +85,11 @@ function hideResult(){
 
 $( document ).ready(function() {
     $("#number").keyup(function(){
-        hideResult();
+        $("#number").keypress(function(event) {
+            if ( event.which != 13 ){
+                hideResult();
+            }
+        });
     });
 });
 
