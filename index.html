@@ -1,24 +1,26 @@
 <!DOCTYPE>
-<html>
+<html lang="en">
 <head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="mystyle.css">
+<title>Parity Bit Generator</title>
 <body>
 
 <div class="container">
     <h1><strong>Parity Bit Generator</strong></h1>
-    <form class="form-inline" role="form" action="javascript:generateHandler()" >
+    <form class="form-inline" role="form" action="javascript:generateButtonHandler()" >
     	<div class="form-group">
             <label class="sr-only" for="number">Input Number</label>
             <input type="text" class="form-control input-lg" name="number" id="number" placeholder="ex: 1234, 0b10, 0xBA">
     	</div>	
-    	<button type="submit" class="btn btn-primary btn-lg">Generate</button>
+    	<button type="submit" class="btn btn-primary btn-lg" id="generate-button" disabled="true">Generate</button>
     </form>
     <div id="result-section" >
     </div>
-
 
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -26,43 +28,30 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script>
 function getTableData(){
-    var input_num = $("#number").val();
-    
-    
-    if (input_num.match("^0b")){
-        var bin_num = input_num.slice(2);
+    var data = {};
+    data.input_num = $("#number").val();
+    if (data.input_num.match("^0b")){
+        data.bin_num = data.input_num.slice(2);
     } else {
-        var bin_num = parseInt(input_num).toString(2);
+        data.bin_num = parseInt(data.input_num).toString(2);
     }
-    var count_of_1s = bin_num.match(/1/g).length;
-    var even_parity = count_of_1s % 2;
-    var odd_parity = (count_of_1s + 1) % 2;
-    var data = [ input_num,
-                 bin_num,
-                 count_of_1s,
-                 even_parity,
-                 odd_parity ];
-
+    data.count_of_1s = data.bin_num.match(/1/g).length;
+    data.even_parity = data.count_of_1s % 2;
+    data.odd_parity = (data.count_of_1s + 1) % 2;
     return data;
 }
 
 function showResult(data){
-    var input_num = data[0];
-    var bin_num = data[1];
-    var count_of_1s = data[2];
-    var even_parity = data[3];
-    var odd_parity = data[4];
-
     var html = '<div class="alert alert-success" id="alert-section" role="alert">'
     + '    <i class="fa fa-chevron-right"></i>'
     + '    <i class="fa fa-chevron-right"></i>'
-    + '    <p><strong> ' + input_num + '</strong></p>'
+    + '    <p><strong> ' + data.input_num + '</strong></p>'
     + '    <table class="table table-condensed">'
     + '    <tr>'
     + '    <th>binary</th><th>count of 1s</th><th>even parity</th><th>odd parity</th>'
     + '    </tr>'    
     + '    <tr>'
-    + '    <td>' + bin_num + '</td><td>' + count_of_1s + '</td><td>' + even_parity + '</td><td>' + odd_parity + '</td>'
+    + '    <td>' + data.bin_num + '</td><td>' + data.count_of_1s + '</td><td>' + data.even_parity + '</td><td>' + data.odd_parity + '</td>'
     + '    </tr>' 
     + '    </table>'
     + ' </div>';
@@ -72,7 +61,7 @@ function showResult(data){
     $("#result-section").fadeIn('fast');
 }
 
-function generateHandler(){
+function generateButtonHandler(){
     var data = getTableData();
     showResult(data);
 }
@@ -83,18 +72,32 @@ function hideResult(){
     });
 }
 
-$( document ).ready(function() {
-    $("#number").keyup(function(){
-        $("#number").keypress(function(event) {
-            if ( event.which != 13 ){
-                hideResult();
-            }
-        });
-    });
+$("#number").bind('keyup keypress',function(event) {
+    if (event.which != 13) { hideResult(); }
+});
+
+$("#number").keyup( function(event) {
+    $(".form-group").removeClass("has-error"); 
+    $("#generate-button").prop('disabled',true);
+    var input_num = $("#number").val();
+    if (input_num.match("^0b")){
+        bin_num = input_num.slice(2);
+        if (!(/^[0|1]+$/.test(bin_num))){
+            $(".form-group").addClass("has-error");    
+        } else {
+            $("#generate-button").prop('disabled',false);
+        }
+    } else {
+        bin_num = parseInt(+input_num).toString(2);
+        if (isNaN(bin_num)){
+            $(".form-group").addClass("has-error");
+        } else {
+            $("#generate-button").prop('disabled',false);
+        }
+    }
 });
 
 </script>
-
 
 </body>
 </html>
