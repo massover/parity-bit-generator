@@ -12,7 +12,7 @@
 
 <div class="container">
     <h1><strong>Parity Bit Generator</strong></h1>
-    <form class="form-inline" role="form" action="javascript:generateButtonHandler()" >
+    <form class="form-inline" role="form" id="generate-parity" >
     	<div class="form-group">
             <label class="sr-only" for="number">Input Number</label>
             <input type="text" class="form-control input-lg" name="number" id="number" placeholder="ex: 1234, 0b10, 0xBA">
@@ -26,8 +26,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="parity-bit-generator.js"></script>
 <script>
-function getTableData(){
+function getParityData(){
     var data = {};
     data.input_num = $("#number").val();
     if (data.input_num.match("^0b")){
@@ -41,7 +42,7 @@ function getTableData(){
     return data;
 }
 
-function showResult(data){
+function showParityData(data){
     var html = '<div class="alert alert-success" id="alert-section" role="alert">'
     + '    <i class="fa fa-chevron-right"></i>'
     + '    <i class="fa fa-chevron-right"></i>'
@@ -61,10 +62,6 @@ function showResult(data){
     $("#result-section").fadeIn('fast');
 }
 
-function generateButtonHandler(){
-    var data = getTableData();
-    showResult(data);
-}
 
 $("#number").bind('input',function(event) {
         $("#result-section").fadeOut('fast');
@@ -90,6 +87,13 @@ $("#number").keyup( function(event) {
         }
     }
 });
+
+$("#generate-parity").submit( function(event) {
+    event.preventDefault();
+    var data = getParityData();
+    showParityData(data);
+});
+
 
 </script>
 
