@@ -4,9 +4,7 @@ body{ padding-top: 60px; }
 #input-info-section p{
     color: #333;
     font-size: 125%;
-    margin-top: 3px;
     display: inline; 
-    vertical-align:middle;
     padding-left: 10px;
 }
 
