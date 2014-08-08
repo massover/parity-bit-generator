@@ -1,14 +1,7 @@
-body{ padding: 60px; }
+body{ padding-top: 60px; }
 
-#result-section{
-    /*display: none;*/
-}
 
-table{
-    margin-top: 10px; 
-}
-
-#result-section p{
+#input-info-section p{
     color: #333;
     font-size: 125%;
     margin-top: 3px;
@@ -16,3 +9,16 @@ table{
     vertical-align:middle;
     padding-left: 10px;
 }
+
+#parity-data-section{
+    padding-top: 5px;
+}
+
+#parity-data-section p{
+    color: #333;
+    font-size: 125%;
+    margin-bottom: 0px;
+}
+
+
+
