@@ -51,21 +51,27 @@ $("#number").bind('input',function(event) {
 });
 
 $("#number").keyup( function(event) {
-    $(".form-group").removeClass("has-error"); 
-    $("#generate-button").prop('disabled',true);
     var input_num = $("#number").val();
     if (input_num.match("^0b")){
         bin_num = input_num.slice(2);
         if (!(/^[0|1]+$/.test(bin_num))){
-            $(".form-group").addClass("has-error");    
+            $(".form-group").addClass("has-error");   
+            $("#generate-button").prop('disabled',true);
         } else {
+            $(".form-group").removeClass("has-error"); 
             $("#generate-button").prop('disabled',false);
         }
     } else {
         bin_num = (+input_num).toString(2);
-        if (isNaN(bin_num)){
+        if( input_num.length == 0 ){
             $(".form-group").addClass("has-error");
+            $("#generate-button").prop('disabled',true);
+        } else if (isNaN(bin_num)){
+            $(".form-group").addClass("has-error");
+            $("#generate-button").prop('disabled',true);
+         
         } else {
+            $(".form-group").removeClass("has-error"); 
             $("#generate-button").prop('disabled',false);
         }
     }
