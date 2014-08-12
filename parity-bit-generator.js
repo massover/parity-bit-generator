@@ -13,34 +13,10 @@ function getParityData(){
 }
 
 function showParityData(data){
-    var html = '<div class="alert alert-success" id="alert-section" role="alert">'
-    + '    <div id="input-info-section" class="row">'
-    + '        <div class="col-sm-12">'
-    + '            <i class="fa fa-chevron-right"></i>'
-    + '            <i class="fa fa-chevron-right"></i>'
-    + '            <p> ' + data.input_num + '</p>'
-    + '        </div>'
-    + '    </div>'
-    + '    <div id="parity-data-section" class="row">'
-    + '        <div class="col-sm-3">'
-    + '            <p><em>binary</em></p>'
-    + '            <p> ' + data.bin_num + '</p>'
-    + '        </div>'
-    + '        <div class="col-sm-3">'
-    + '            <p><em>count of 1s</em></p>'
-    + '            <p class="large"> ' + data.count_of_1s + ' </p>'
-    + '        </div>'
-    + '        <div class="col-sm-3">'
-    + '            <p><em>even parity</em></p>'
-    + '            <p> ' + data.even_parity + ' </p>'
-    + '        </div>'
-    + '        <div class="col-sm-3">'
-    + '            <p><em>odd parity</em></p>'
-    + '            <p> ' + data.odd_parity + ' </p>'
-    + '        </div>'
-    + '    </div>'
-    + ' </div>';
-
+    var source = $("#parity-data-template").html();
+    var template = Handlebars.compile(source);
+    var html = template(data);
+    alert("hi");
  
     $("#result-section").html(html);
     $("#result-section").fadeIn('fast');

@@ -25,8 +25,38 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="handlebars-v1.3.0.js"></script>
 <script src="parity-bit-generator.js"></script>
 <script src="google-analytics.js"></script>
+<script id="parity-data-template" type="text/x-handlebars-template">
+     <div class="alert alert-success" id="alert-section" role="alert">
+       <div id="input-info-section" class="row">
+           <div class="col-sm-12">
+               <i class="fa fa-chevron-right"></i>
+               <i class="fa fa-chevron-right"></i>
+               <p> {{ input_num }}  </p>
+           </div>
+       </div>
+       <div id="parity-data-section" class="row">
+           <div class="col-sm-3">
+               <p><em>binary</em></p>
+               <p> {{ bin_num }}  </p> 
+           </div> 
+           <div class="col-sm-3"> 
+               <p><em>count of 1s</em></p> 
+               <p class="large"> {{ count_of_1s }}  </p> 
+           </div> 
+           <div class="col-sm-3"> 
+               <p><em>even parity</em></p> 
+               <p> {{ even_parity }} </p> 
+           </div> 
+           <div class="col-sm-3"> 
+               <p><em>odd parity</em></p> 
+               <p> {{ odd_parity }}  </p> 
+           </div> 
+       </div> 
+     </div>  
+</script>
 
 </body>
 </html>
