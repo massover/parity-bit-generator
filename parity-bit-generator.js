@@ -1,6 +1,6 @@
 function getParityData(){
     var data = {};
-    data.input_num = $("#number").val();
+    data.input_num = $("#input-box").val();
     if (data.input_num.match("^0b")){
         data.bin_num = data.input_num.slice(2);
     } else {
@@ -20,38 +20,38 @@ function showParityData(data){
     $("#result-section").fadeIn('fast');
 }
 
-$("#number").bind('input',function(event) {
+$("#input-box").bind('input',function(event) {
         $("#result-section").fadeOut('fast');
 });
 
-$("#number").keyup( function(event) {
-    var input_num = $("#number").val();
+$("#input-box").keyup( function(event) {
+    var input_num = $("#input-box").val();
     if (input_num.match("^0b")){
         bin_num = input_num.slice(2);
         if (!(/^[0|1]+$/.test(bin_num))){
-            $(".form-group").addClass("has-error");   
+            $("#input-box-form").addClass("has-error");   
             $("#generate-button").prop('disabled',true);
         } else {
-            $(".form-group").removeClass("has-error"); 
+            $("#input-box-form").removeClass("has-error"); 
             $("#generate-button").prop('disabled',false);
         }
     } else {
         bin_num = (+input_num).toString(2);
         if( input_num.length == 0 ){
-            $(".form-group").addClass("has-error");
+            $("#input-box-form").addClass("has-error");
             $("#generate-button").prop('disabled',true);
         } else if (isNaN(bin_num)){
-            $(".form-group").addClass("has-error");
+            $("#input-box-form").addClass("has-error");
             $("#generate-button").prop('disabled',true);
          
         } else {
-            $(".form-group").removeClass("has-error"); 
+            $("#input-box-form").removeClass("has-error"); 
             $("#generate-button").prop('disabled',false);
         }
     }
 });
 
-$("#generate-parity").submit( function(event) {
+$("#input-box-form").submit( function(event) {
     event.preventDefault();
     var data = getParityData();
     showParityData(data);

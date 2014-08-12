@@ -12,10 +12,10 @@
 
 <div class="container">
     <h1><strong>Parity Bit Generator</strong></h1>
-    <form class="form-inline" role="form" id="generate-parity" >
+    <form class="form-inline" role="form" id="input-box-form" >
     	<div class="form-group">
             <label class="sr-only" for="number">Input Number</label>
-            <input type="text" class="form-control input-lg" name="number" id="number" placeholder="1234, 0b10, 0xBA">
+            <input type="text" class="form-control input-lg" id="input-box" placeholder="1234, 0b10, 0xBA">
     	</div>	
     	<button type="submit" class="btn btn-primary btn-lg" id="generate-button" disabled="true">Generate</button>
     </form>
@@ -23,9 +23,9 @@
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="handlebars-v1.3.0.js"></script>
+
 <script src="parity-bit-generator.js"></script>
 <script src="google-analytics.js"></script>
 <script id="parity-data-template" type="text/x-handlebars-template">
