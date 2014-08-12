@@ -16,8 +16,6 @@ function showParityData(data){
     var source = $("#parity-data-template").html();
     var template = Handlebars.compile(source);
     var html = template(data);
-    alert("hi");
- 
     $("#result-section").html(html);
     $("#result-section").fadeIn('fast');
 }
