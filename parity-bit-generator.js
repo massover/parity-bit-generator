@@ -28,27 +28,13 @@ $("#input-box").keyup( function(event) {
     var input_num = $("#input-box").val();
     if (input_num.match("^0b")){
         bin_num = input_num.slice(2);
-        if (!(/^[0|1]+$/.test(bin_num))){
-            $("#input-box-form").addClass("has-error");   
-            $("#generate-button").prop('disabled',true);
-        } else {
-            $("#input-box-form").removeClass("has-error"); 
-            $("#generate-button").prop('disabled',false);
-        }
+        is_error = !(/^[0|1]+$/.test(bin_num));
     } else {
         bin_num = (+input_num).toString(2);
-        if( input_num.length == 0 ){
-            $("#input-box-form").addClass("has-error");
-            $("#generate-button").prop('disabled',true);
-        } else if (isNaN(bin_num)){
-            $("#input-box-form").addClass("has-error");
-            $("#generate-button").prop('disabled',true);
-         
-        } else {
-            $("#input-box-form").removeClass("has-error"); 
-            $("#generate-button").prop('disabled',false);
-        }
+        is_error = isNaN(bin_num);
     }
+    $("#input-box-form").toggleClass("has-error",is_error);
+    $("#generate-button").prop('disabled',is_error);
 });
 
 $("#input-box-form").submit( function(event) {
