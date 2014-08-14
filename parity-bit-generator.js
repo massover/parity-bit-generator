@@ -1,3 +1,11 @@
+var template;
+
+$(function() {
+  var source = $("#parity-data-template").html();
+  template = Handlebars.compile(source);
+  $("input-box").focus();
+});
+
 function getParityData(){
     var data = {};
     data.input_num = $("#input-box").val();
@@ -8,39 +16,36 @@ function getParityData(){
     }
     data.count_of_1s = data.bin_num.match(/1/g).length;
     data.even_parity = data.count_of_1s % 2;
-    data.odd_parity = (data.count_of_1s + 1) % 2;
+    data.odd_parity = 1 - data.even_parity;
     return data;
 }
 
 function showParityData(data){
-    var source = $("#parity-data-template").html();
-    var template = Handlebars.compile(source);
     var html = template(data);
-    $("#result-section").html(html);
-    $("#result-section").fadeIn('fast');
+    $("#result-section").fadeOut(100, function() {
+        $("#result-section").html(html).fadeIn('fast');
+    });
 }
 
-$("#input-box").bind('input',function(event) {
-        $("#result-section").fadeOut('fast');
+$(function() {
+
+    $("#input-box").keyup( function(event) {
+        var input_num = $("#input-box").val();
+        if (input_num.match("^0b")){
+            bin_num = input_num.slice(2);
+            error = ! /^[0|1]+$/.test(bin_num);
+        } else {
+            bin_num = (+input_num).toString(2);
+            error = isNaN(bin_num);
+        }
+        $("#input-box-form").toggleClass("has-error",error);
+        $("#generate-button").prop('disabled',error);
+    });
+
+    $("#input-box-form").submit( function(event) {
+        event.preventDefault();
+        var data = getParityData();
+        showParityData(data);
+    });
+
 });
-
-$("#input-box").keyup( function(event) {
-    var input_num = $("#input-box").val();
-    if (input_num.match("^0b")){
-        bin_num = input_num.slice(2);
-        is_error = !(/^[0|1]+$/.test(bin_num));
-    } else {
-        bin_num = (+input_num).toString(2);
-        is_error = isNaN(bin_num);
-    }
-    $("#input-box-form").toggleClass("has-error",is_error);
-    $("#generate-button").prop('disabled',is_error);
-});
-
-$("#input-box-form").submit( function(event) {
-    event.preventDefault();
-    var data = getParityData();
-    showParityData(data);
-});
-
-
