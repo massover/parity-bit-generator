@@ -3,7 +3,6 @@ var template;
 $(function() {
   var source = $("#parity-data-template").html();
   template = Handlebars.compile(source);
-  $("input-box").focus();
 });
 
 function getParityData(){
