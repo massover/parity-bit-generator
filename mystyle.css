@@ -19,6 +19,7 @@ body{ padding-top: 60px; }
     color: #333;
     font-size: 125%;
     margin-bottom: 0px;
+    word-wrap: break-word;
 }
 
 
