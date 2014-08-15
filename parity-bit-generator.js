@@ -34,7 +34,7 @@ $(function() {
             bin_num = input_num.slice(2);
             error = ! /^[0|1]+$/.test(bin_num);
         } else {
-            bin_num = (+input_num).toString(2);
+            bin_num = (input_num).toString(2);
             error = isNaN(bin_num);
         }
         $("#input-box-form").toggleClass("has-error",error);
