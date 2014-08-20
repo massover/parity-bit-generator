@@ -44,10 +44,14 @@ function inputValueTest(input_num){
             throw 'Invalid hex input value';
         }
     } else {
+        if ( /e/i.test(input_num) ){
+            throw 'Invalid decimal input value';
+        }
         bin_num = input_num.toString(2);
         if ( isNaN(bin_num) ){
             throw 'Invalid decimal input value';
         }
+        
     }
 }
 
