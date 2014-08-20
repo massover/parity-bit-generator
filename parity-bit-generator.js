@@ -26,37 +26,45 @@ function showParityData(data){
     });
 }
 
-function detectBinaryInputError(bin_num,input_num){
-    if(+input_num > 9007199254740992){
-        return true;
-    } 
-    return ! /^[0|1]+$/.test(bin_num);
-}
-
-
-function maxValueError(input_num){
-    if(+input_num > 9007199254740992){
-        return true;
-    } else {
-        return false;
+function maxValueTest(input_num){
+    if(parseInt(input_num) > 9007199254740992){
+        throw 'Input number too large -- JavaScript suuuuccckksss!';
     } 
 } 
 
+function inputValueTest(input_num){
+    if (input_num.match("^0b")){
+        bin_num = input_num.slice(2);
+        if(! /^[0|1]+$/.test(bin_num)){
+            throw 'Invalid binary input value';
+        }
+    } else if (input_num.match("^0x")){
+        bin_num = input_num.toString(2);
+        if ( isNaN(bin_num) ){
+            throw 'Invalid hex input value';
+        }
+    } else {
+        bin_num = input_num.toString(2);
+        if ( isNaN(bin_num) ){
+            throw 'Invalid decimal input value';
+        }
+    }
+}
 
 $(function() {
 
     $("#input-box").keyup( function(event) {
         var input_num = $("#input-box").val();
-        if (input_num.match("^0b")){
-            bin_num = input_num.slice(2);
-            error =  ! /^[0|1]+$/.test(bin_num); 
-        } else {
-            bin_num = input_num.toString(2);
-            error = isNaN(bin_num);
-        }
-        error = error || maxValueError(input_num);
-        $("#input-box-form").toggleClass("has-error",error);
-        $("#generate-button").prop('disabled',error);
+        try{
+            maxValueTest(input_num);
+            inputValueTest(input_num);
+            error = false;
+        } catch (e) {
+            error = e;
+        } 
+        $("#help-section").html(error).fadeIn('slow'); 
+        $("#input-box-form").toggleClass("has-error",Boolean(error));
+        $("#generate-button").prop('disabled',Boolean(error));
     });
 
     $("#input-box-form").submit( function(event) {
