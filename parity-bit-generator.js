@@ -26,17 +26,35 @@ function showParityData(data){
     });
 }
 
+function detectBinaryInputError(bin_num,input_num){
+    if(+input_num > 9007199254740992){
+        return true;
+    } 
+    return ! /^[0|1]+$/.test(bin_num);
+}
+
+
+function maxValueError(input_num){
+    if(+input_num > 9007199254740992){
+        return true;
+    } else {
+        return false;
+    } 
+} 
+
+
 $(function() {
 
     $("#input-box").keyup( function(event) {
         var input_num = $("#input-box").val();
         if (input_num.match("^0b")){
             bin_num = input_num.slice(2);
-            error = ! /^[0|1]+$/.test(bin_num);
+            error =  ! /^[0|1]+$/.test(bin_num); 
         } else {
-            bin_num = (input_num).toString(2);
+            bin_num = input_num.toString(2);
             error = isNaN(bin_num);
         }
+        error = error || maxValueError(input_num);
         $("#input-box-form").toggleClass("has-error",error);
         $("#generate-button").prop('disabled',error);
     });
