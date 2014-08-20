@@ -1,4 +1,7 @@
-body{ padding-top: 60px; }
+@media(min-width: 992px){
+    body{ padding-top: 60px; }
+}
+
 
 #result-section{
     margin-top: 10px;
